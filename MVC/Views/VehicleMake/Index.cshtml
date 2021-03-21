@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Service.Models.VehicleMake>
+@{ 
+    ViewData["Title"] = "Vehicle Make";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-secondary">Vehicle Makes</h2>
+        </div>
+        <div class="col-6">
+            <a asp-controller="VehicleMake" asp-action="CreateMake" class="btn btn-primary">Create New Make</a>
+        </div>
+    </div>
+
+    <br />
+
+    @if (Model.Count() >0)
+    {
+        <table class="table table-bordered" style="width:100%">
+            <thead class="table-secondary">
+                <tr>
+                    <th>
+                        Vehicle Make Name
+                    </th>
+                    <th>
+                        Vehicle Make Abrv
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                <tr>
+                    <td width="50%">@obj.Name</td>
+                    <td width="30%">@obj.Abrv</td>
+                    <td>
+                        <div class="btn-group-sm" >
+                            <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary m-2">Edit</a>
+                            <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger m-2">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Vehicle Make Exist</p>
+    }
+
+</div>
