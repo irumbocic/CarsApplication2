@@ -1,0 +1,26 @@
+﻿@model Service.Models.VehicleModel
+@{
+    ViewData["Title"] = "Edit Vehicle Model";
+}
+
+
+<form method="post" asp-action="EditPost">
+    <input asp-for="Id" hidden />
+    <input asp-for="MakeId" hidden />
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Vehicle Model</h2>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name">Edit Name</label>
+            <input asp-for="Name"  class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Abrv">Edit Abrv</label>
+            <input asp-for="Abrv"  class="form-control" />
+        </div>
+        @*MORAM DODATI I DA SE MOZE IZMJENITI MAKE ID, tj MAKE NAME ZA SVAKI VEHICLE MODEL*@
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</form>

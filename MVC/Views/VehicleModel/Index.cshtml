@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Service.Models.VehicleModel>
+﻿
+@model MVC.ViewModels.VehicleModelViewModel
 
 
 @{
@@ -12,8 +13,11 @@
             <h2 class="text-secondary">Vehicle Models</h2>
         </div>
         <div class="col-6">
-            <a asp-controller="VehicleModel" asp-action="CreateModel" class="btn btn-primary">Create New Model</a>
+            <a asp-controller="VehicleModel" asp-action="Create" class="btn btn-primary">Create New Model</a>
         </div>
+    </div>
+    <div class="container p-4">
+         
     </div>
 
     <br />
@@ -29,18 +33,18 @@
                     Vehicle Model Abrv
                 </th>
                 <th>
-                    Make Id
+                    Make Name
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model)
+            @foreach (var obj in Model.VehicleModelList)
             {
                 <tr>
                     <td width="40%">@obj.Name</td>
                     <td width="20%">@obj.Abrv</td>
-                    <td width="20%">@obj.MakeId</td>
+                    <td width="20%">@Model.VehicleMakeList.SingleOrDefault(m => m.Id == obj.MakeId).Name</td>
                     <td class="text-center">
 
                         <div class="btn-group-sm">

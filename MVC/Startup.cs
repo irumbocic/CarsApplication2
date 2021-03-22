@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.EfStructure;
 using AutoMapper;
 using Service.Methods;
+using MVC.Models;
 
 namespace MVC
 {
@@ -34,7 +35,7 @@ namespace MVC
             services.AddControllersWithViews();
             services.AddDbContext<VehicleContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("VehicleConnection")));
-            //services.AddAutoMapper();
+            services.AddAutoMapper(typeof(VehicleModelProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

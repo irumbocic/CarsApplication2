@@ -1,0 +1,27 @@
+﻿@model Service.Models.VehicleMake
+@{
+    ViewData["Title"] = "Vehicle Make";
+}
+
+<form method="post" asp-action="EditPost">
+    <input asp-for="Id" hidden />
+
+    <div class="border p-3">
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Edit Vehicle Make</h2>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Abrv"></label>
+            <input asp-for="Abrv" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+    </div>
+
+</form>

@@ -82,3 +82,9 @@ C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\V
 C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\Ninject.dll
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleMake\Delete.cshtml.g.cs
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleMake\Edit.cshtml.g.cs
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleModel\Delete.cshtml.g.cs
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleModel\Edit.cshtml.g.cs
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleModel\Create.cshtml.g.cs
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleMake\Create.cshtml.g.cs

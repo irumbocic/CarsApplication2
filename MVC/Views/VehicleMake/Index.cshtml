@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Service.Models.VehicleMake>
+
+
 @{ 
     ViewData["Title"] = "Vehicle Make";
 }
@@ -9,7 +11,7 @@
             <h2 class="text-secondary">Vehicle Makes</h2>
         </div>
         <div class="col-6">
-            <a asp-controller="VehicleMake" asp-action="CreateMake" class="btn btn-primary">Create New Make</a>
+            <a asp-controller="VehicleMake" asp-action="Create" class="btn btn-primary">Create New Make</a>
         </div>
     </div>
 
@@ -26,6 +28,7 @@
                     <th>
                         Vehicle Make Abrv
                     </th>
+
                     <th></th>
                 </tr>
             </thead>

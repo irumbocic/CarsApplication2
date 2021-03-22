@@ -27,6 +27,7 @@ namespace Service.Methods
         {
             var deleteMake = context.VehicleMakes.Find(id);
             context.Remove(deleteMake);
+            context.SaveChanges();
             return deleteMake;
         }
 
