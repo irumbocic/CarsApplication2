@@ -1,0 +1,30 @@
+﻿@model MVC.ViewModels.VehicleMakeViewModel
+@{
+    ViewData["Title"] = "Vehicle Make";
+}
+
+<form method="get" asp-action="Details">
+    <input asp-for="Id" hidden />
+
+    <div class="border p-3">
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-4">Details for:  @Model.Name</h2>
+        </div>
+        <div class="form-group">
+            Make Id: <b>@Model.Id</b>
+        </div>
+        <div class="form-group">
+            Make Name: <b>@Model.Name</b>
+        </div>
+        <div class="form-group">
+            Make Abbreviation: <b>@Model.Abrv</b>
+        </div>
+
+
+        <a asp-action="Index" class="btn btn-secondary">See All Makes</a>
+
+    </div>
+
+</form>

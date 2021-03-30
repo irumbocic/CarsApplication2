@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Service.Methods
 {
     public interface IVehicleMakeService
     {
-        public VehicleMake UpdateMake(VehicleMake updatedMake);
-        public VehicleMake CreateMake(VehicleMake newMake);
-        public VehicleMake DeleteMake(int id);
-        public VehicleMake SelectMake(int id);
+        public Task<VehicleMake> UpdateMakeAsync(VehicleMake updatedMake);
+        public Task<VehicleMake> CreateMakeAsync(VehicleMake newMake);
+        public Task<VehicleMake> DeleteMakeAsync(int id);
+        public Task<VehicleMake> SelectMakeAsync(int id);
 
     }
 }

@@ -11,14 +11,17 @@ namespace MVC.Models
 {
     public class VehicleModelProfile : Profile
     {
-        private readonly VehicleContext context;
+        //private readonly VehicleContext context;
         // Izmjeniti kad napravim update!
-        public VehicleModelProfile(VehicleContext context)
+        public VehicleModelProfile()
         {
-            CreateMap<VehicleModel, VehicleModelViewModel>();
+            //CreateMap<VehicleModel, VehicleModelViewModel>();
                 
-            CreateMap<VehicleModelViewModel, VehicleModel>();
-            this.context = context;
+            //CreateMap<VehicleModelViewModel, VehicleModel>();
+            //this.context = context;
+
+            CreateMap<VehicleModel, VehicleModelViewModel>()
+                .ReverseMap();
         }
     }
 }

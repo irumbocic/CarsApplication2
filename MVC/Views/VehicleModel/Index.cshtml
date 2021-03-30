@@ -1,61 +1,95 @@
-﻿
-@model MVC.ViewModels.VehicleModelViewModel
-
+﻿@*@model IEnumerable<MVC.ViewModels.VehicleModelViewModel>*@
+@model PaginatedList<Service.Models.VehicleModel>
+@using Service.Models;
 
 @{
     ViewData["Title"] = "Vehicle Model";
 }
 
 
+
 <div class="container p-3">
+    <form asp-action="Index" method="get">
+        <div class="col-12">
+            <p>
+                <label for="searchString">Find Model:</label>
+                <input type="text" class="col-9" name="searchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">See All</a>
+
+            </p>
+        </div>
+    </form>
     <div class="row pt-4">
-        <div class="col-6">
+        <div class="col-10">
             <h2 class="text-secondary">Vehicle Models</h2>
         </div>
-        <div class="col-6">
-            <a asp-controller="VehicleModel" asp-action="Create" class="btn btn-primary">Create New Model</a>
+        <div class="col-2">
+            <a asp-controller="VehicleModel" asp-action="Create" class="btn btn-primary">Add New Model</a>
         </div>
     </div>
     <div class="container p-4">
-         
+
     </div>
 
-    <br />
 
     @*Dodati if uvijet, ako nema nijedan vehiclemodel onda staviti neku message : "No Vehicle Models found." ili tako nesto*@
     <table class="table table-bordered" style="width:100%">
         <thead class="table-secondary">
             <tr>
                 <th>
-                    Vehicle Model Name
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
                 </th>
                 <th>
-                    Vehicle Model Abrv
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abbreviation</a>
+
                 </th>
                 <th>
-                    Make Name
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["MakeIdSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Make Id</a>
                 </th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var obj in Model.VehicleModelList)
+            @foreach (var obj in Model)
             {
+
                 <tr>
                     <td width="40%">@obj.Name</td>
                     <td width="20%">@obj.Abrv</td>
-                    <td width="20%">@Model.VehicleMakeList.SingleOrDefault(m => m.Id == obj.MakeId).Name</td>
+                    <td width="20%">@obj.MakeId</td>
                     <td class="text-center">
 
                         <div class="btn-group-sm">
-                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary m-2">Edit</a>
-                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger m-2">Delete</a>
+                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
+                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
+                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-secondary">Details</a>
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-
 </div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex -1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-light @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex +1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-light @nextDisabled">
+    Next
+</a>
+
+

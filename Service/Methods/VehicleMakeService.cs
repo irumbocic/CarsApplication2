@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Service.Methods
 {
@@ -16,33 +17,33 @@ namespace Service.Methods
             this.context = context;
         }
 
-        public VehicleMake CreateMake(VehicleMake newMake)
+        public async Task<VehicleMake> CreateMakeAsync(VehicleMake newMake)
         {
             context.VehicleMakes.Add(newMake);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return newMake;
         }
 
-        public VehicleMake DeleteMake(int id)
+        public async Task<VehicleMake> DeleteMakeAsync(int id)
         {
             var deleteMake = context.VehicleMakes.Find(id);
             context.Remove(deleteMake);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return deleteMake;
         }
 
-        public VehicleMake SelectMake(int id)
+        public async Task<VehicleMake> SelectMakeAsync(int id)
         {
-            return context.VehicleMakes.Find(id);
-
+            return await context.VehicleMakes.FindAsync(id);
         }
 
-        public VehicleMake UpdateMake(VehicleMake updatedMake)
+        public async Task<VehicleMake> UpdateMakeAsync(VehicleMake updatedMake)
         {
             var makes = context.VehicleMakes.Attach(updatedMake);
             makes.State = EntityState.Modified;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return updatedMake;
         }
+
     }
 }

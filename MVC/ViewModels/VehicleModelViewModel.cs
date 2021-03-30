@@ -9,19 +9,13 @@ namespace MVC.ViewModels
 {
     public class VehicleModelViewModel
     {
-        public IEnumerable<VehicleMake> VehicleMakeList { get; set; }
-        public IEnumerable<VehicleModel> VehicleModelList { get; set; }
-
         
+        public int Id { get; set; }
+        public int MakeId { get; set; }
+        public string Name { get; set; }
+        public string Abrv { get; set; }
 
-        //public string VehicleMakeName
-        //{
-
-        //    get
-        //    {
-        //        return context.VehicleMakes.SingleOrDefault(m => m.Id == VehicleModel.MakeId)?.Name;
-        //    }
-        //}
+        public VehicleMake VehicleMakes { get; set; }
 
     }
 

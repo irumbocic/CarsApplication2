@@ -9,6 +9,11 @@ namespace MVC.ViewModels
 {
     public class VehicleMakeViewModel
     {
-        // dodati VehicleMake + informaciju "count" koliko svaki pojedini Make ima Modela
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public string Abrv { get; set; }
+
+        public virtual ICollection<VehicleModel> VehicleModels { get; set; }
     }
 }

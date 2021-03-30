@@ -17,7 +17,6 @@ namespace Service.Models
         public string Name { get; set; }
         public string Abrv { get; set; }
 
-        //PROVJERITI STO OVO RADI i zasto bez njega nije htio modelBuilder raditi
 
         public virtual VehicleMake VehicleMake { get; set; }
     }

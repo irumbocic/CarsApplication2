@@ -1,0 +1,33 @@
+﻿@model MVC.ViewModels.VehicleModelViewModel
+@{
+    ViewData["Title"] = "Vehicle Model";
+}
+
+<form method="get" asp-action="Details">
+    <input asp-for="Id" hidden />
+
+    <div class="border p-3">
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-4">Details for:  @Model.Name</h2>
+        </div>
+        <div class="form-group">
+            Model Id: <b>@Model.Id</b>
+        </div>
+        <div class="form-group">
+            Model Name: <b>@Model.Name</b>
+        </div>
+        <div class="form-group">
+            Model Abbreviation: <b>@Model.Abrv</b>
+        </div>
+        <div class="form-group">
+            Make Id: <b>@Model.MakeId</b>
+        </div>
+
+
+        <a asp-action="Index" class="btn btn-secondary">See All Models</a>
+
+    </div>
+
+</form>

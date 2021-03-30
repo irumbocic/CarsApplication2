@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +13,9 @@ using Service.EfStructure;
 using AutoMapper;
 using Service.Methods;
 using MVC.Models;
+using Ninject.Modules;
+using System.Reflection;
+using Ninject;
 
 namespace MVC
 {
@@ -21,6 +24,7 @@ namespace MVC
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -28,6 +32,7 @@ namespace MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             // PREBACI SE NA NINJECT
             services.AddScoped<IVehicleMakeService, VehicleMakeService>();
             services.AddScoped<IVehicleModelService, VehicleModelService>();
@@ -35,7 +40,16 @@ namespace MVC
             services.AddControllersWithViews();
             services.AddDbContext<VehicleContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("VehicleConnection")));
-            services.AddAutoMapper(typeof(VehicleModelProfile));
+
+            //services.AddAutoMapper(typeof(VehicleModelProfile));
+
+            var config = new AutoMapper.MapperConfiguration(c =>
+            {
+                c.AddProfile(new VehicleModelProfile());
+                c.AddProfile(new VehicleMakeProfile());
+            });
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,4 +80,6 @@ namespace MVC
             });
         }
     }
+
+    
 }

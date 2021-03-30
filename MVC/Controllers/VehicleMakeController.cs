@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MVC.ViewModels;
 using Service.EfStructure;
 using Service.Methods;
 using Service.Models;
@@ -13,44 +16,61 @@ namespace MVC.Controllers
     {
         private readonly VehicleContext context;
         private readonly IVehicleMakeService vehicleMakeService;
+        private readonly IMapper mapper;
 
-        public VehicleMakeController(VehicleContext context, IVehicleMakeService vehicleMakeService)
+        public VehicleMakeController(VehicleContext context, IVehicleMakeService vehicleMakeService, IMapper mapper)
         {
             this.context = context;
             this.vehicleMakeService = vehicleMakeService;
+            this.mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            IEnumerable<VehicleMake> makeList = context.VehicleMakes;
-            return View(makeList);
+            ViewData["CurrentFilter"] = sortOrder;
+
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
+            ViewData["AbrvSortParam"] = String.IsNullOrEmpty(sortOrder) ? "abrvDesc" : "";
+
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var makeList = from m in context.VehicleMakes
+                           select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                makeList = makeList.Where(m => m.Abrv.Contains(searchString) || m.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "nameDesc":
+                    makeList = makeList.OrderByDescending(m => m.Name);
+                    break;
+                case "abrvDesc":
+                    makeList = makeList.OrderByDescending(m => m.Abrv);
+                    break;
+                default:
+                    makeList = makeList.OrderBy(m => m.Id);
+                    break;
+            }
+
+            int pageSize = 10;
+            //return View(mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList));
+
+            var makeListMapped = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
+
+            return View(await PaginatedList<VehicleMake>.CreateAsync(makeList.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
-        //GET-Delete
-        public IActionResult Delete(int id)
-        {
-            var selectedMake = vehicleMakeService.SelectMake(id);
-            return View(selectedMake);
-        }
-        //POST-Delete
-        public IActionResult DeletePost(int id)
-        {
-            vehicleMakeService.DeleteMake(id);
-            return RedirectToAction("Index");
-        }
 
-        //GET-Edit
-        public IActionResult Edit(int id)
-        {
-            var selectedMake = vehicleMakeService.SelectMake(id);
-            return View(selectedMake);
-        }
-        //POST-Edit
-        
-        public IActionResult EditPost(VehicleMake updatedMake)
-        {
-            var selectedMake = vehicleMakeService.UpdateMake(updatedMake);
-            return RedirectToAction("Index");
-        }
 
         //GET-Create
         public IActionResult Create()
@@ -60,10 +80,49 @@ namespace MVC.Controllers
         }
         //POST-Create
        
-        public IActionResult CreatePost(VehicleMake newMake)
+        public async Task<IActionResult> CreatePost(VehicleMakeViewModel newViewModel)
         {
-            var selectedMake = vehicleMakeService.CreateMake(newMake);
+            var newMake = mapper.Map<VehicleMake>(newViewModel);
+            await vehicleMakeService.CreateMakeAsync(newMake);
             return RedirectToAction("Index");
         }
+
+
+        //GET-Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+        }
+        //POST-Edit
+
+        public async Task<IActionResult> EditPost(VehicleMakeViewModel updatedViewModel)
+        {
+            var updatedMake = mapper.Map<VehicleMake>(updatedViewModel);
+            await vehicleMakeService.UpdateMakeAsync(updatedMake);
+            return RedirectToAction("Index");
+        }
+
+
+        //GET-Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            return View(selectedMake);
+        }
+        //POST-Delete
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await vehicleMakeService.DeleteMakeAsync(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+        }
+
+
     }
 }
