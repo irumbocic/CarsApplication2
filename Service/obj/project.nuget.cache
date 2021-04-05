@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "tPved1pLRxHbDZevPkgbaeF3GghNgFxkbIGHYffit/xRLnU0bL8ZXfv0NscQPsIdr21aBf3h3rcd0mwYfcLqeg==",
+  "dgSpecHash": "NjlAo1bBvsnDuFzHvTwhaKI4UESs8KJ5OFtVzVtUnF3JrHQTi+5YuGY4v+zuXXErDVrE9gmDGXe8YC5PuhGaVA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ivana\\source\\repos\\CarsApplication2\\Service\\Service.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ivana\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\ivana\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

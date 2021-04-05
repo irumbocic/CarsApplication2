@@ -128,3 +128,7 @@ C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\V
 C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\VehicleModel\Details.cshtml.g.cs
 C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\PagedList.dll
 C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll
+C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\Autofac.dll
+C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\Autofac.Extensions.DependencyInjection.dll
+C:\Users\ivana\source\repos\CarsApplication2\MVC\bin\Debug\netcoreapp3.1\Autofac.Integration.Mvc.dll
+C:\Users\ivana\source\repos\CarsApplication2\MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error - Copy.cshtml.g.cs

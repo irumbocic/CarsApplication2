@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using MVC.ViewModels;
 using Service.EfStructure;
@@ -79,7 +80,7 @@ namespace MVC.Controllers
 
         }
         //POST-Create
-       
+
         public async Task<IActionResult> CreatePost(VehicleMakeViewModel newViewModel)
         {
             var newMake = mapper.Map<VehicleMake>(newViewModel);
@@ -91,16 +92,29 @@ namespace MVC.Controllers
         //GET-Edit
         public async Task<IActionResult> Edit(int id)
         {
+
+
             var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
-            return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+
+            if (selectedMake == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+            }
+
         }
         //POST-Edit
 
         public async Task<IActionResult> EditPost(VehicleMakeViewModel updatedViewModel)
         {
             var updatedMake = mapper.Map<VehicleMake>(updatedViewModel);
+
             await vehicleMakeService.UpdateMakeAsync(updatedMake);
             return RedirectToAction("Index");
+
         }
 
 
@@ -108,7 +122,15 @@ namespace MVC.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
-            return View(selectedMake);
+            if (selectedMake == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                return View(selectedMake);
+
+            }
         }
         //POST-Delete
         public async Task<IActionResult> DeletePost(int id)
@@ -120,7 +142,16 @@ namespace MVC.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
-            return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+            if (selectedMake == null)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
+            else
+            {
+                return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
+
+            }
         }
 
 

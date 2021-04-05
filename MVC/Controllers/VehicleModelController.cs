@@ -98,7 +98,14 @@ namespace MVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var selectedModel = await vehicleModelService.SelectModelAsync(id);
-            return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // tu mi je mapirano iz vehiclemodel u viewModel
+            if (selectedModel == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // tu mi je mapirano iz vehiclemodel u viewModel
+            }
         }
 
         //POST-Edit-AutoMapper
@@ -114,8 +121,15 @@ namespace MVC.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var selectedModel = await vehicleModelService.SelectModelAsync(id);
-            //return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // mapirano je u viewModel - TREBAM LI OVO MAPIRATI UOPCE
-            return View(selectedModel);
+            if (selectedModel == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            else
+            {
+                //return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // mapirano je u viewModel - TREBAM LI OVO MAPIRATI UOPCE
+                return View(selectedModel);
+            }
         }
 
         //POST-Delete
@@ -130,7 +144,16 @@ namespace MVC.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var selectedModel = await vehicleModelService.SelectModelAsync(id);
-            return View(mapper.Map<VehicleModelViewModel>(selectedModel));
+            if (selectedModel == null)
+            {
+                return RedirectToAction("Error", "Home");
+
+            }
+            else
+            {
+                return View(mapper.Map<VehicleModelViewModel>(selectedModel));
+
+            }
         }
 
     }

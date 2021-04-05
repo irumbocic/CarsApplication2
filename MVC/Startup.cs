@@ -16,13 +16,19 @@ using MVC.Models;
 using Ninject.Modules;
 using System.Reflection;
 using Ninject;
+using Autofac;
+using MVC.Dependency;
 
 namespace MVC
 {
     public class Startup
     {
+
+        
         public Startup(IConfiguration configuration)
         {
+
+
             Configuration = configuration;
             
         }
@@ -34,8 +40,10 @@ namespace MVC
         {
 
             // PREBACI SE NA NINJECT
-            services.AddScoped<IVehicleMakeService, VehicleMakeService>();
-            services.AddScoped<IVehicleModelService, VehicleModelService>();
+            //services.AddScoped<IVehicleMakeService, VehicleMakeService>();
+            //services.AddScoped<IVehicleModelService, VehicleModelService>();
+
+            services.AddOptions();
 
             services.AddControllersWithViews();
             services.AddDbContext<VehicleContext>(options =>
@@ -50,6 +58,11 @@ namespace MVC
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new DependencyRegister());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

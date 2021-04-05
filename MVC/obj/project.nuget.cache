@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "f2BDZXGyPRlyJw7lT7KBUXtxVHoEL2Q/Jmozmrt16LGP1w7OpT9PKp5ZG0tUBHCYns2Vz9529Og+4eQa/JP7Tg==",
+  "dgSpecHash": "ZP/up415rDywnR3TZPdLdog/OrQg7XExJ3bOkVHowaaezTNdq3jpeDzZjuX9S5gWk1M0bd+lxOeI9Q8qszXMTQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ivana\\source\\repos\\CarsApplication2\\MVC\\MVC.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ivana\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\ivana\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
+    "C:\\Users\\ivana\\.nuget\\packages\\autofac.mvc5\\6.0.0\\autofac.mvc5.6.0.0.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.0\\microsoft.aspnetcore.authorization.3.0.0.nupkg.sha512",
@@ -129,6 +132,16 @@
     "C:\\Users\\ivana\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Autofac.Mvc5 6.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Autofac.Mvc5",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",
