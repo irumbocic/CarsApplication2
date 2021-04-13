@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Linq;
+using Service.PageSortFilter;
+using X.PagedList;
 
 namespace Service.Methods
 {
@@ -16,6 +19,31 @@ namespace Service.Methods
         {
             this.context = context;
         }
+
+        //kreiraj metodu Find-vracat ce LIST
+        public async Task<IPagedList<VehicleModel>> FindAsync(IFilter filter, ISort sort, IPaging<VehicleModel> paging)
+        {
+            string SortOrder = sort.SortOrder;
+            string CurrentFilter = filter.CurrentFilter;
+            string SearchString = filter.SearchString;
+            int? pageNumber = filter.pageNumber;
+
+
+
+            List<VehicleModel> VehicleModelList = await context.VehicleModels.Include(m => m.VehicleMake).ToListAsync();
+
+
+            var listFilter = filter.Filtering(VehicleModelList, SearchString, CurrentFilter);
+
+
+
+            var sortModel = await sort.Ordering(listFilter.Result.ToList(), SortOrder);
+
+            var pagedModel = paging.PagingList(sortModel);
+
+            return pagedModel;
+        }
+       
 
         public async Task<VehicleModel> CreateModelAsync(VehicleModel newModel)
         {
@@ -33,6 +61,7 @@ namespace Service.Methods
             return deletedModel;
         }
         public async Task<VehicleModel> SelectModelAsync(int id)
+        // pisati GetModelAsync --> promijeniti
         {
             return await context.VehicleModels.FindAsync(id);
         }
@@ -44,6 +73,7 @@ namespace Service.Methods
             await context.SaveChangesAsync();
             return updatedModel;
         }
+
 
     }
 }

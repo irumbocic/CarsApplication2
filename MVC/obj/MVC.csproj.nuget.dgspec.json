@@ -81,6 +81,10 @@
             "ReflectionIT.Mvc.Paging": {
               "target": "Package",
               "version": "[4.0.0, )"
+            },
+            "X.PagedList.Mvc.Core": {
+              "target": "Package",
+              "version": "[8.0.7, )"
             }
           },
           "imports": [
@@ -176,6 +180,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.13, )"
+            },
+            "System.Linq.Dynamic.3.5": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "X.PagedList.Mvc.Core": {
+              "target": "Package",
+              "version": "[8.0.7, )"
             }
           },
           "imports": [

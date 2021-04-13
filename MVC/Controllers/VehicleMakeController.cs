@@ -69,6 +69,9 @@ namespace MVC.Controllers
             var makeListMapped = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
 
             return View(await PaginatedList<VehicleMake>.CreateAsync(makeList.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+     
+
         }
 
 

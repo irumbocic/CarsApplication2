@@ -1,10 +1,14 @@
-﻿@*@model IEnumerable<MVC.ViewModels.VehicleModelViewModel>*@
-@model PaginatedList<Service.Models.VehicleModel>
-@using Service.Models;
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 
-@{
-    ViewData["Title"] = "Vehicle Model";
-}
+
+
+@model IPagedList<MVC.ViewModels.VehicleModelViewModel>
+
+@using Service.Models;
+@using Service.PageSortFilter;
+
+@{ ViewData["Title"] = "Vehicle Model"; }
 
 
 
@@ -14,7 +18,9 @@
             <p>
                 <label for="searchString">Find Model:</label>
                 <input type="text" class="col-9" name="searchString" value="@ViewData["CurrentFilter"]" />
+
                 <input type="submit" value="Search" class="btn btn-primary" />
+
                 <a asp-action="Index" class="btn btn-secondary">See All</a>
 
             </p>
@@ -33,6 +39,23 @@
     </div>
 
 
+
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new
+    {
+        page = page,
+    currentFilter = ViewData["CurrentFilter"],
+        sortOrder = ViewData["CurrentSort"]
+}),
+                new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                {
+                    DisplayItemSliceAndTotal = true,
+                    ContainerDivClasses = new[] { "navigation" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                })
+
+
+
     @*Dodati if uvijet, ako nema nijedan vehiclemodel onda staviti neku message : "No Vehicle Models found." ili tako nesto*@
     <table class="table table-bordered" style="width:100%">
         <thead class="table-secondary">
@@ -45,8 +68,11 @@
 
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["MakeIdSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Make Id</a>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["MakeIdSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Make Name</a>
+                    @*<a asp-action="Index">Make Name</a>*@
+
                 </th>
+
                 <th>Action</th>
             </tr>
         </thead>
@@ -57,7 +83,8 @@
                 <tr>
                     <td width="40%">@obj.Name</td>
                     <td width="20%">@obj.Abrv</td>
-                    <td width="20%">@obj.MakeId</td>
+                    <td width="20%">@obj.VehicleMake.Name</td>
+                    @*<td>@obj.VehicleMakes.Name</td>*@
                     <td class="text-center">
 
                         <div class="btn-group-sm">
@@ -70,26 +97,26 @@
             }
         </tbody>
     </table>
+
+
+
+    <div class="pull-right">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+                     new
+                     {
+                         page
+                     }),
+                   new X.PagedList.Web.Common.PagedListRenderOptionsBase
+                   {
+                       LiElementClasses = new string[] { "page-item" },
+                       PageClasses = new string[] { "page-link" },
+                       Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
+
+                   })
+    </div>
+
 </div>
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 
 }
-
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex -1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-light @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex +1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-light @nextDisabled">
-    Next
-</a>
 
 

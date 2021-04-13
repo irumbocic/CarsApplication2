@@ -16,7 +16,7 @@ namespace MVC.ViewModels
         public string Name { get; set; }
         public string Abrv { get; set; }
 
-        public VehicleMake VehicleMakes { get; set; }
+        public VehicleMake VehicleMake { get; set; }
 
     }
 
