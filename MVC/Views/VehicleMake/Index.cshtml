@@ -1,10 +1,10 @@
-﻿@*@model IEnumerable<MVC.ViewModels.VehicleMakeViewModel>*@
-@model PaginatedList<Service.Models.VehicleMake>
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
 
 
-@{
-    ViewData["Title"] = "Vehicle Make";
-}
+
+@model IPagedList<MVC.ViewModels.VehicleMakeViewModel>
+@{ ViewData["Title"] = "Vehicle Make"; }
 
 <div class="container p-3">
     <form asp-action="Index" method="get">
@@ -31,64 +31,71 @@
 
     <br />
 
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new
+    {
+        page = page,
+        currentFilter = ViewData["CurrentFilter"],
+        sortOrder = ViewData["CurrentSort"]
+    }),
+                        new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                        {
+                            DisplayItemSliceAndTotal = true,
+                            ContainerDivClasses = new[] { "navigation" },
+                            LiElementClasses = new[] { "page-item" },
+                            PageClasses = new[] { "page-link" },
+                        })
+
+
     @if (Model.Count() > 0)
     {
-        <table class="table table-bordered" style="width:100%">
-            <thead class="table-secondary">
-                <tr>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
-                    </th>
-                    <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abbreviation</a>
-                    </th>
+<table class="table table-bordered" style="width:100%">
+    <thead class="table-secondary">
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abbreviation</a>
+            </th>
 
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr>
-                        <td width="50%">@obj.Name</td>
-                        <td width="30%">@obj.Abrv</td>
-                        <td>
-                            <div class="btn-group-sm">
-                                <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
-                                <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
-                                <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-secondary">Details</a>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+<tr>
+    <td width="50%">@obj.Name</td>
+    <td width="30%">@obj.Abrv</td>
+    <td>
+        <div class="btn-group-sm">
+            <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
+            <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
+            <a asp-controller="VehicleMake" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-secondary">Details</a>
 
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No Vehicle Make Exist</p>
-    }
+        </div>
+    </td>
+</tr>}
+    </tbody>
+</table> }
+else
+{
+<p>No Vehicle Make Exist</p>}
 
 </div>
 
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 
-}
+<div class="pull-right">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+                      new
+                      {
+                          page
+                      }),
+                    new X.PagedList.Web.Common.PagedListRenderOptionsBase
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" },
+                        Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex -1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-light @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex +1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-light @nextDisabled">
-    Next
-</a>
+                    })
+</div>

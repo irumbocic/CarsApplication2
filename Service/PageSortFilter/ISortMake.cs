@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Service.PageSortFilter
 {
-    public interface ISort
+    public interface ISortMake
     {
 
         public string SortOrder { get; set; }
-        public Task<List<VehicleModel>> OrderingAsync(List<VehicleModel> filterModel, string SortOrder);
+        public Task<List<VehicleMake>> OrderingAsync(List<VehicleMake> filterMake, string SortOrder);
     }
 }

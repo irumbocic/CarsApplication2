@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Service.PageSortFilter
 {
-    public class Filter : IFilter
+    public class FilterMake : IFilterMake
     {
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
@@ -18,10 +18,10 @@ namespace Service.PageSortFilter
 
        
 
-        public async Task<List<VehicleModel>> FilteringAsync(List<VehicleModel> vehicleModels, string searchString, string currentFilter)
+        public async Task<List<VehicleMake>> FilteringAsync(List<VehicleMake> vehicleMakes, string searchString, string currentFilter)
         {
 
-            var newPagedList = vehicleModels;
+            var newPagedList = vehicleMakes;
 
             if (searchString != null)
             {
@@ -34,7 +34,7 @@ namespace Service.PageSortFilter
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                newPagedList = await vehicleModels.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString) || m.VehicleMake.Name.Contains(searchString)).ToListAsync(); // ovdje moram dodati i make-name, kad to sredim
+                newPagedList = await vehicleMakes.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString)).ToListAsync(); // ovdje moram dodati i make-name, kad to sredim
             }
             ;
             return newPagedList;

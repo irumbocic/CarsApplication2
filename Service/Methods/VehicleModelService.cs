@@ -33,13 +33,13 @@ namespace Service.Methods
             List<VehicleModel> VehicleModelList = await context.VehicleModels.Include(m => m.VehicleMake).ToListAsync();
 
 
-            var listFilter = filter.Filtering(VehicleModelList, SearchString, CurrentFilter);
+            var listFilter = await filter.FilteringAsync(VehicleModelList, SearchString, CurrentFilter);
 
 
 
-            var sortModel = await sort.Ordering(listFilter.Result.ToList(), SortOrder);
+            var sortModel = await sort.OrderingAsync(listFilter.ToList(), SortOrder);
 
-            var pagedModel = paging.PagingList(sortModel);
+            var pagedModel = await paging.PagingListAsync(sortModel);
 
             return pagedModel;
         }

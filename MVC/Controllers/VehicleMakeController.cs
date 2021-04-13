@@ -6,71 +6,60 @@ using MVC.ViewModels;
 using Service.EfStructure;
 using Service.Methods;
 using Service.Models;
+using Service.PageSortFilter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace MVC.Controllers
 {
     public class VehicleMakeController : Controller
     {
-        private readonly VehicleContext context;
         private readonly IVehicleMakeService vehicleMakeService;
         private readonly IMapper mapper;
 
-        public VehicleMakeController(VehicleContext context, IVehicleMakeService vehicleMakeService, IMapper mapper)
+        public VehicleMakeController(IVehicleMakeService vehicleMakeService, IMapper mapper)
         {
-            this.context = context;
             this.vehicleMakeService = vehicleMakeService;
             this.mapper = mapper;
         }
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
+        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? pageNumber, int? page)
         {
-            ViewData["CurrentFilter"] = sortOrder;
-
-            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "nameDesc" : "";
-            ViewData["AbrvSortParam"] = String.IsNullOrEmpty(sortOrder) ? "abrvDesc" : "";
+            //ZADNJA VERZIJA
 
 
-            if (searchString != null)
-            {
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+            FilterMake filter = new FilterMake();
 
-            var makeList = from m in context.VehicleMakes
-                           select m;
+            SortMake sort = new SortMake();
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                makeList = makeList.Where(m => m.Abrv.Contains(searchString) || m.Name.Contains(searchString));
-            }
+            Paging<VehicleMake> paging = new Paging<VehicleMake>();
 
-            switch (sortOrder)
-            {
-                case "nameDesc":
-                    makeList = makeList.OrderByDescending(m => m.Name);
-                    break;
-                case "abrvDesc":
-                    makeList = makeList.OrderByDescending(m => m.Abrv);
-                    break;
-                default:
-                    makeList = makeList.OrderBy(m => m.Id);
-                    break;
-            }
+            filter.CurrentFilter = currentFilter;
+            filter.SearchString = searchString;
+            filter.pageNumber = pageNumber;
 
-            int pageSize = 10;
-            //return View(mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList));
 
-            var makeListMapped = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
+            sort.SortOrder = sortOrder;
 
-            return View(await PaginatedList<VehicleMake>.CreateAsync(makeList.AsNoTracking(), pageNumber ?? 1, pageSize));
+            paging.page = page;
 
-     
+
+            ViewData["CurrentSort"] = sort.SortOrder;
+
+            ViewData["NameSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "nameDesc" : "";
+            ViewData["AbrvSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "abrvDesc" : "";
+            ViewData["MakeIdSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "makeIdDesc" : "";
+
+
+            var makeList = await vehicleMakeService.FindAsync(filter, sort, paging);
+
+            IEnumerable<VehicleMakeViewModel> viewModelList = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
+            IPagedList<VehicleMakeViewModel> pagedViewModelList = new StaticPagedList<VehicleMakeViewModel>(viewModelList, makeList.GetMetaData());
+
+
+            return View(pagedViewModelList);
 
         }
 

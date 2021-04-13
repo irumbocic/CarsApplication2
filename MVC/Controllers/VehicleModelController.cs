@@ -33,7 +33,7 @@ namespace MVC.Controllers
 
         }
         //-AutoMapper
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber, int? page)
+        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? pageNumber, int? page)
         {
             //ZADNJA VERZIJA
 

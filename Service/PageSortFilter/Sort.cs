@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Service.Models;
+using X.PagedList;
 
 namespace Service.PageSortFilter
 {
@@ -13,23 +14,23 @@ namespace Service.PageSortFilter
         public string SortOrder { get; set; }
 
 
-        public async Task<List<VehicleModel>> Ordering(List<VehicleModel> filterModel, string SortOrder)
+        public async Task<List<VehicleModel>> OrderingAsync(List<VehicleModel> filterModel, string SortOrder)
         {
             //IEnumerable<VehicleModel> vehicleModels = await vehicleModelService.FindAsync();
 
             switch (SortOrder)
             {
                 case "nameDesc":
-                    filterModel = filterModel.OrderByDescending(m => m.Name).ToList();
+                    filterModel = await filterModel.OrderByDescending(m => m.Name).ToListAsync();
                     break;
                 case "abrvDesc":
-                    filterModel = filterModel.OrderByDescending(m => m.Abrv).ToList();
+                    filterModel = await filterModel.OrderByDescending(m => m.Abrv).ToListAsync();
                     break;
                 case "makeIdDesc":
-                    filterModel = filterModel.OrderByDescending(m => m.MakeId).ToList();
+                    filterModel = await filterModel.OrderByDescending(m => m.MakeId).ToListAsync();
                     break;
                 default:
-                    filterModel = filterModel.OrderBy(m => m.Id).ToList();
+                    filterModel = await filterModel.OrderBy(m => m.Id).ToListAsync();
                     break;
             }
             return filterModel;

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using X.PagedList;
 using Service.PageSortFilter;
+using System.Linq;
 
 namespace Service.Methods
 {
@@ -20,28 +21,28 @@ namespace Service.Methods
         }
 
 
-        //public async Task<IPagedList<VehicleMake>> FindAsync(IFilter filter, ISort sort, IPaging<VehicleMake> paging)
-        //{
-            //string SortOrder = sort.SortOrder;
-            //string CurrentFilter = filter.CurrentFilter;
-            //string SearchString = filter.SearchString;
-            //int? pageNumber = filter.pageNumber;
+        public async Task<IPagedList<VehicleMake>> FindAsync(IFilterMake filter, ISortMake sort, IPaging<VehicleMake> paging)
+        {
+            string SortOrder = sort.SortOrder;
+            string CurrentFilter = filter.CurrentFilter;
+            string SearchString = filter.SearchString;
+            int? pageNumber = filter.pageNumber;
 
 
 
-            //List<VehicleMake> VehicleMakelList = await context.VehicleMakes.ToListAsync();
+            List<VehicleMake> VehicleMakeList = await context.VehicleMakes.ToListAsync();
 
 
-            //var listFilter = filter.Filtering(VehicleMakelList, SearchString, CurrentFilter);
+            var listFilter = await filter.FilteringAsync(VehicleMakeList, SearchString, CurrentFilter);
 
 
 
-            //var sortModel = await sort.Ordering(listFilter.Result.ToList(), SortOrder);
+            var sortMake = await sort.OrderingAsync(listFilter.ToList(), SortOrder);
 
-            //var pagedModel = paging.PagingList(sortModel);
+            var pagedMake = await paging.PagingListAsync(sortMake);
 
-            //return pagedModel;
-        //}
+            return pagedMake;
+        }
 
         public async Task<VehicleMake> CreateMakeAsync(VehicleMake newMake)
         {

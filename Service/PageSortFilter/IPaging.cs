@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using X.PagedList;
 
 namespace Service.PageSortFilter
@@ -8,6 +9,6 @@ namespace Service.PageSortFilter
 
         public int ? page { get; set; }
 
-        public IPagedList<T> PagingList(List<T> pagedModel);
+        public Task<IPagedList<T>> PagingListAsync(List<T> pagedModel);
     }
 }

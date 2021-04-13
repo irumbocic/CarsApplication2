@@ -10,3 +10,15 @@ C:\Users\ivana\source\repos\CarsApplication2\Service\obj\Debug\netcoreapp3.1\Ser
 C:\Users\ivana\source\repos\CarsApplication2\Service\obj\Debug\netcoreapp3.1\Service.dll
 C:\Users\ivana\source\repos\CarsApplication2\Service\obj\Debug\netcoreapp3.1\Service.pdb
 C:\Users\ivana\source\repos\CarsApplication2\Service\obj\Debug\netcoreapp3.1\Service.genruntimeconfig.cache
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\bin\Debug\netcoreapp3.1\Service.deps.json
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\bin\Debug\netcoreapp3.1\Service.runtimeconfig.json
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\bin\Debug\netcoreapp3.1\Service.runtimeconfig.dev.json
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\bin\Debug\netcoreapp3.1\Service.dll
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\bin\Debug\netcoreapp3.1\Service.pdb
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.csprojAssemblyReference.cache
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.AssemblyInfoInputs.cache
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.AssemblyInfo.cs
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.csproj.CoreCompileInputs.cache
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.dll
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.pdb
+C:\Users\ivana\OneDrive\Desktop\CarsApplication2-master (1) - update 13.4\CarsApplication2-master\Service\obj\Debug\netcoreapp3.1\Service.genruntimeconfig.cache

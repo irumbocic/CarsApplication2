@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using X.PagedList;
 
 namespace Service.PageSortFilter
@@ -9,13 +10,13 @@ namespace Service.PageSortFilter
     {
 
         public int ? page { get; set; }
-        public IPagedList<T> PagingList(List<T> sortedModel)
+        public async Task<IPagedList<T>> PagingListAsync(List<T> sortedModel)
         {
 
             var pageNumber = this.page ?? 1;
             int pageSize = 10;
 
-            var pagedModel = sortedModel.ToPagedList(pageNumber, pageSize);
+            var pagedModel = await sortedModel.ToPagedListAsync(pageNumber, pageSize);
 
             return pagedModel;
         }

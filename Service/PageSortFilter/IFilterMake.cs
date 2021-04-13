@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Service.PageSortFilter
 {
-    public interface IFilter
+    public interface IFilterMake
     {
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
         public int? pageNumber { get; set; }
-        public Task<List<VehicleModel>> FilteringAsync(List<VehicleModel> vehicleModels, string searchString, string currentFilter);
+        public Task<List<VehicleMake>> FilteringAsync(List<VehicleMake> vehicleMakes, string searchString, string currentFilter);
     }
 }
