@@ -86,7 +86,7 @@ namespace MVC.Controllers
         {
 
 
-            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            var selectedMake = await vehicleMakeService.GetMakeAsync(id);
 
             if (selectedMake == null)
             {
@@ -113,7 +113,7 @@ namespace MVC.Controllers
         //GET-Delete
         public async Task<IActionResult> Delete(int id)
         {
-            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            var selectedMake = await vehicleMakeService.GetMakeAsync(id);
             if (selectedMake == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -133,7 +133,7 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var selectedMake = await vehicleMakeService.SelectMakeAsync(id);
+            var selectedMake = await vehicleMakeService.GetMakeAsync(id);
             if (selectedMake == null)
             {
                 return RedirectToAction("Error", "Home");

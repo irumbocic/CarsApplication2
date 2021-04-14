@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Service.PageSortFilter;
 using X.PagedList;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Service.Methods
 {
@@ -60,7 +61,7 @@ namespace Service.Methods
             //await Task.FromResult(true);
             return deletedModel;
         }
-        public async Task<VehicleModel> SelectModelAsync(int id)
+        public async Task<VehicleModel> GetModelAsync(int id)
         // pisati GetModelAsync --> promijeniti
         {
             return await context.VehicleModels.FindAsync(id);
@@ -74,6 +75,17 @@ namespace Service.Methods
             return updatedModel;
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetListOfMakeNamesAsync()
+        {
+            List<VehicleMake> VehicleMakeList = await context.VehicleMakes.ToListAsync();
 
+            var items = VehicleMakeList.Select(m => new SelectListItem
+            {
+                Text = m.Name.ToString(),
+                Value = m.Id.ToString()
+            });
+           
+            return items;
+        }
     }
 }

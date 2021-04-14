@@ -59,7 +59,7 @@ namespace Service.Methods
             return deleteMake;
         }
 
-        public async Task<VehicleMake> SelectMakeAsync(int id)
+        public async Task<VehicleMake> GetMakeAsync(int id)
         {
             return await context.VehicleMakes.FindAsync(id);
         }

@@ -66,7 +66,6 @@ namespace MVC.Controllers
             IEnumerable<VehicleModelViewModel> viewModelList = mapper.Map<IEnumerable<VehicleModelViewModel>>(modelList);
             IPagedList<VehicleModelViewModel> pagedViewModelList = new StaticPagedList<VehicleModelViewModel>(viewModelList, modelList.GetMetaData());
 
-        
 
             return View(pagedViewModelList);
 
@@ -98,15 +97,26 @@ namespace MVC.Controllers
         //GET-Edit-AutoMapper
         public async Task<IActionResult> Edit(int id)
         {
-            var selectedModel = await vehicleModelService.SelectModelAsync(id);
+            var selectedModel = await vehicleModelService.GetModelAsync(id);
             if (selectedModel == null)
             {
                 return RedirectToAction("Error", "Home");
             }
             else
             {
+
+                var makeNameList = await vehicleModelService.GetListOfMakeNamesAsync();
+
+                IEnumerable<SelectListItem> viewMakeNameList = mapper.Map<IEnumerable<SelectListItem>>(makeNameList);
+
+               
+                ViewBag.viewMakeNameList = viewMakeNameList;
+
                 return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // tu mi je mapirano iz vehiclemodel u viewModel
             }
+
+           
+
         }
 
         //POST-Edit-AutoMapper
@@ -128,7 +138,7 @@ namespace MVC.Controllers
         //GET-Delete-AutoMapper
         public async Task<IActionResult> Delete(int id)
         {
-            var selectedModel = await vehicleModelService.SelectModelAsync(id);
+            var selectedModel = await vehicleModelService.GetModelAsync(id);
             if (selectedModel == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -151,7 +161,7 @@ namespace MVC.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var selectedModel = await vehicleModelService.SelectModelAsync(id);
+            var selectedModel = await vehicleModelService.GetModelAsync(id);
             if (selectedModel == null)
             {
                 return RedirectToAction("Error", "Home");
