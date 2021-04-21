@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JOcIWMYpQU/53q7yvhwhN+Hk8e+6hitu5egWDFxPT26OcerLdUiW/e+S5YW9cNcdX8W1M7u5Ir3vE419nJMG1w==",
+  "dgSpecHash": "+dy+bt80gj4wiWNwE6YsQQjeoOaVINO9+xBiWVFncXW6sgEovtk+/aEm47yvMjL5EPOV7LXhyqiAgIi3Gk59rw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ivana\\source\\repos\\CarsApplication2\\MVC\\MVC.csproj",
   "expectedPackageFiles": [
@@ -200,7 +200,8 @@
     "C:\\Users\\ivana\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\x.pagedlist\\8.0.7\\x.pagedlist.8.0.7.nupkg.sha512",
     "C:\\Users\\ivana\\.nuget\\packages\\x.pagedlist.mvc.core\\8.0.7\\x.pagedlist.mvc.core.8.0.7.nupkg.sha512",
-    "C:\\Users\\ivana\\.nuget\\packages\\x.pagedlist.web.common\\8.0.7\\x.pagedlist.web.common.8.0.7.nupkg.sha512"
+    "C:\\Users\\ivana\\.nuget\\packages\\x.pagedlist.web.common\\8.0.7\\x.pagedlist.web.common.8.0.7.nupkg.sha512",
+    "C:\\Users\\ivana\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
   ],
   "logs": [
     {
