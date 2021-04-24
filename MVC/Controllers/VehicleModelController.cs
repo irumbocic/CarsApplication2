@@ -46,7 +46,7 @@ namespace MVC.Controllers
 
             filter.CurrentFilter = currentFilter;
             filter.SearchString = searchString;
-            filter.pageNumber = pageNumber;
+            filter.PageNumber = pageNumber;
 
 
             sort.SortOrder = sortOrder;
@@ -54,11 +54,11 @@ namespace MVC.Controllers
             paging.page = page;
 
 
-            ViewData["CurrentSort"] = sort.SortOrder;
+            TempData["CurrentSort"] = sort.SortOrder;
 
-            ViewData["NameSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "nameDesc" : "";
-            ViewData["AbrvSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "abrvDesc" : "";
-            ViewData["MakeIdSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "makeIdDesc" : "";
+            TempData["NameSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "nameDesc" : "";
+            TempData["AbrvSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "abrvDesc" : "";
+            TempData["MakeIdSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "makeIdDesc" : "";
 
 
             var modelList = await vehicleModelService.FindAsync(filter, sort, paging);
@@ -66,6 +66,7 @@ namespace MVC.Controllers
             IEnumerable<VehicleModelViewModel> viewModelList = mapper.Map<IEnumerable<VehicleModelViewModel>>(modelList);
             IPagedList<VehicleModelViewModel> pagedViewModelList = new StaticPagedList<VehicleModelViewModel>(viewModelList, modelList.GetMetaData());
 
+            TempData["SearchString"] = filter.SearchString;
 
             return View(pagedViewModelList);
 

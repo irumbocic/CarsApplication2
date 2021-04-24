@@ -17,7 +17,9 @@
         <div class="col-12">
             <p>
                 <label for="searchString">Find Model:</label>
-                <input type="text" class="col-9" name="searchString" value="@ViewData["CurrentFilter"]" />
+                <input type="text" class="col-9" name="searchString" value="@TempData["SearchString"]" />
+                @*<input type="text" class="col-9" name="searchString" value="@TempData["CurrentFilter"]" />*@
+
 
                 <input type="submit" value="Search" class="btn btn-primary" />
 
@@ -43,16 +45,19 @@
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new
     {
         page = page,
-    currentFilter = ViewData["CurrentFilter"],
-        sortOrder = ViewData["CurrentSort"]
-}),
-                new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
-                {
-                    DisplayItemSliceAndTotal = true,
-                    ContainerDivClasses = new[] { "navigation" },
-                    LiElementClasses = new[] { "page-item" },
-                    PageClasses = new[] { "page-link" },
-                })
+        //currentFilter = ViewData["CurrentFilter"],
+        //sortOrder = ViewData["CurrentSort"]
+        currentFilter = TempData["CurrentFilter"],
+        sortOrder = TempData["CurrentSort"],
+        searchString = TempData["SearchString"]
+    }),
+                    new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
+                    {
+                        DisplayItemSliceAndTotal = true,
+                        ContainerDivClasses = new[] { "navigation" },
+                        LiElementClasses = new[] { "page-item" },
+                        PageClasses = new[] { "page-link" },
+                    })
 
 
 
@@ -61,14 +66,14 @@
         <thead class="table-secondary">
             <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+                    <a asp-action="Index" asp-route-sortOrder="@TempData["NameSortParam"]" asp-route-currentFilter="@TempData["SearchString"]">Name</a>
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abbreviation</a>
+                    <a asp-action="Index" asp-route-sortOrder="@TempData["AbrvSortParam"]" asp-route-currentFilter="@TempData["SearchString"]">Abbreviation</a>
 
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["MakeIdSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Make Name</a>
+                    <a asp-action="Index" asp-route-sortOrder="@TempData["MakeIdSortParam"]" asp-route-currentFilter="@TempData["SearchString"]">Make Name</a>
                     @*<a asp-action="Index">Make Name</a>*@
 
                 </th>
@@ -80,21 +85,20 @@
             @foreach (var obj in Model)
             {
 
-                <tr>
-                    <td width="40%">@obj.Name</td>
-                    <td width="20%">@obj.Abrv</td>
-                    <td width="20%">@obj.VehicleMake.Name</td>
-                    @*<td>@obj.VehicleMakes.Name</td>*@
-                    <td class="text-center">
+<tr>
+    <td width="40%">@obj.Name</td>
+    <td width="20%">@obj.Abrv</td>
+    <td width="20%">@obj.VehicleMake.Name</td>
+    @*<td>@obj.VehicleMakes.Name</td>*@
+    <td class="text-center">
 
-                        <div class="btn-group-sm">
-                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
-                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
-                            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-secondary">Details</a>
-                        </div>
-                    </td>
-                </tr>
-            }
+        <div class="btn-group-sm">
+            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Edit" class="btn btn-primary">Edit</a>
+            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Delete" class="btn btn-danger">Delete</a>
+            <a asp-controller="VehicleModel" asp-route-Id="@obj.Id" asp-action="Details" class="btn btn-secondary">Details</a>
+        </div>
+    </td>
+</tr>            }
         </tbody>
     </table>
 
@@ -102,17 +106,17 @@
 
     <div class="pull-right">
         @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
-                     new
-                     {
-                         page
-                     }),
-                   new X.PagedList.Web.Common.PagedListRenderOptionsBase
-                   {
-                       LiElementClasses = new string[] { "page-item" },
-                       PageClasses = new string[] { "page-link" },
-                       Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
+                          new
+                          {
+                              page
+                          }),
+                        new X.PagedList.Web.Common.PagedListRenderOptionsBase
+                        {
+                            LiElementClasses = new string[] { "page-item" },
+                            PageClasses = new string[] { "page-link" },
+                            Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
 
-                   })
+                        })
     </div>
 
 </div>

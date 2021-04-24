@@ -11,7 +11,7 @@
         <div class="col-12">
             <p>
                 <label for="searchString">Find Make:</label>
-                <input type="text" class="col-9" name="searchString" value="@ViewData["CurrentFilter"]" />
+                <input type="text" class="col-9" name="searchString" value="@TempData["SearchString"]" />
                 <input type="submit" value="Search" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-secondary">See All</a>
 
@@ -32,11 +32,12 @@
     <br />
 
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new
-    {
-        page = page,
-        currentFilter = ViewData["CurrentFilter"],
-        sortOrder = ViewData["CurrentSort"]
-    }),
+{
+    page = page,
+    currentFilter = TempData["CurrentFilter"],
+    sortOrder = TempData["CurrentSort"],
+    searchString = TempData["SearchString"]
+}),
                         new X.PagedList.Mvc.Core.Common.PagedListRenderOptions
                         {
                             DisplayItemSliceAndTotal = true,
@@ -52,10 +53,10 @@
     <thead class="table-secondary">
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+                <a asp-action="Index" asp-route-sortOrder="@TempData["NameSortParam"]" asp-route-currentFilter="@TempData["SearchString"]">Name</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abbreviation</a>
+                <a asp-action="Index" asp-route-sortOrder="@TempData["AbrvSortParam"]" asp-route-currentFilter="@TempData["SearchString"]">Abbreviation</a>
             </th>
 
             <th>Action</th>

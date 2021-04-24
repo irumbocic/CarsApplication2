@@ -12,7 +12,6 @@ namespace Service.PageSortFilter
         public int ? page { get; set; }
         public async Task<IPagedList<T>> PagingListAsync(List<T> sortedModel)
         {
-
             var pageNumber = this.page ?? 1;
             int pageSize = 10;
 

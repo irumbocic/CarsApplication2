@@ -27,7 +27,7 @@ namespace Service.Methods
             string SortOrder = sort.SortOrder;
             string CurrentFilter = filter.CurrentFilter;
             string SearchString = filter.SearchString;
-            int? pageNumber = filter.pageNumber;
+            int? pageNumber = filter.PageNumber;
 
 
 
@@ -35,7 +35,6 @@ namespace Service.Methods
 
 
             var listFilter = await filter.FilteringAsync(VehicleModelList, SearchString, CurrentFilter);
-
 
 
             var sortModel = await sort.OrderingAsync(listFilter.ToList(), SortOrder);

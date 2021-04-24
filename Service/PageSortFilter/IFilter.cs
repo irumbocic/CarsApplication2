@@ -10,7 +10,7 @@ namespace Service.PageSortFilter
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
-        public int? pageNumber { get; set; }
+        public int? PageNumber { get; set; }
         public Task<List<VehicleModel>> FilteringAsync(List<VehicleModel> vehicleModels, string searchString, string currentFilter);
     }
 }

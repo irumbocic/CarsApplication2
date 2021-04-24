@@ -14,18 +14,18 @@ namespace Service.PageSortFilter
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
-        public int ? pageNumber { get; set; }
+        public int ? PageNumber { get; set; }
 
        
 
         public async Task<List<VehicleModel>> FilteringAsync(List<VehicleModel> vehicleModels, string searchString, string currentFilter)
         {
-
+            
             var newPagedList = vehicleModels;
 
             if (searchString != null)
             {
-                this.pageNumber = 1;
+                this.PageNumber = 1;
             }
             else
             {
@@ -36,6 +36,9 @@ namespace Service.PageSortFilter
             {
                 newPagedList = await vehicleModels.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString) || m.VehicleMake.Name.Contains(searchString)).ToListAsync(); // ovdje moram dodati i make-name, kad to sredim
             }
+
+            SearchString = searchString;
+            CurrentFilter = currentFilter;
             ;
             return newPagedList;
         }

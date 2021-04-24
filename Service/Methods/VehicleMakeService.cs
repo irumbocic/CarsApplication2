@@ -27,6 +27,7 @@ namespace Service.Methods
             string CurrentFilter = filter.CurrentFilter;
             string SearchString = filter.SearchString;
             int? pageNumber = filter.pageNumber;
+            
 
 
 

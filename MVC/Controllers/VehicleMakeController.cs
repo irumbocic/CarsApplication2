@@ -46,11 +46,11 @@ namespace MVC.Controllers
             paging.page = page;
 
 
-            ViewData["CurrentSort"] = sort.SortOrder;
+            TempData["CurrentSort"] = sort.SortOrder;
 
-            ViewData["NameSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "nameDesc" : "";
-            ViewData["AbrvSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "abrvDesc" : "";
-            ViewData["MakeIdSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "makeIdDesc" : "";
+            TempData["NameSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "nameDesc" : "";
+            TempData["AbrvSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "abrvDesc" : "";
+            TempData["MakeIdSortParam"] = string.IsNullOrEmpty(sort.SortOrder) ? "makeIdDesc" : "";
 
 
             var makeList = await vehicleMakeService.FindAsync(filter, sort, paging);
@@ -58,12 +58,11 @@ namespace MVC.Controllers
             IEnumerable<VehicleMakeViewModel> viewModelList = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
             IPagedList<VehicleMakeViewModel> pagedViewModelList = new StaticPagedList<VehicleMakeViewModel>(viewModelList, makeList.GetMetaData());
 
+            TempData["SearchString"] = string.IsNullOrEmpty(filter.SearchString) ? filter.CurrentFilter : filter.SearchString; // Ovo sam dodala
 
             return View(pagedViewModelList);
 
         }
-
-
 
         //GET-Create
         public IActionResult Create()
