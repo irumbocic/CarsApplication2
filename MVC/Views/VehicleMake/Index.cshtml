@@ -86,17 +86,3 @@ else
 </div>
 
 
-<div class="pull-right">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
-                      new
-                      {
-                          page
-                      }),
-                    new X.PagedList.Web.Common.PagedListRenderOptionsBase
-                    {
-                        LiElementClasses = new string[] { "page-item" },
-                        PageClasses = new string[] { "page-link" },
-                        Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
-
-                    })
-</div>
