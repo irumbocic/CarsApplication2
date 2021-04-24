@@ -58,7 +58,7 @@ namespace MVC.Controllers
             IEnumerable<VehicleMakeViewModel> viewModelList = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
             IPagedList<VehicleMakeViewModel> pagedViewModelList = new StaticPagedList<VehicleMakeViewModel>(viewModelList, makeList.GetMetaData());
 
-            TempData["SearchString"] = string.IsNullOrEmpty(filter.SearchString) ? filter.CurrentFilter : filter.SearchString; // Ovo sam dodala
+            TempData["SearchString"] = filter.SearchString;            // Ovo sam dodala
 
             return View(pagedViewModelList);
 

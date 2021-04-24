@@ -39,7 +39,7 @@ namespace Service.PageSortFilter
 
             SearchString = searchString;
             CurrentFilter = currentFilter;
-            ;
+            
             return newPagedList;
         }
     }

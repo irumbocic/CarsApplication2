@@ -36,7 +36,10 @@ namespace Service.PageSortFilter
             {
                 newPagedList = await vehicleMakes.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString)).ToListAsync(); // ovdje moram dodati i make-name, kad to sredim
             }
-            ;
+
+            SearchString = searchString;
+            CurrentFilter = currentFilter;
+
             return newPagedList;
         }
     }
