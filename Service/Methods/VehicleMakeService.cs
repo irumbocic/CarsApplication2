@@ -21,28 +21,19 @@ namespace Service.Methods
         }
 
 
-        public async Task<IPagedList<VehicleMake>> FindAsync(IFilterMake filter, ISortMake sort, IPaging<VehicleMake> paging)
+        public async Task<IPagedList<VehicleMake>> FindAsync(IFilterMake filter, ISortMake sort, IPaging<VehicleMake> paging) 
         {
-            string SortOrder = sort.SortOrder;
-            string CurrentFilter = filter.CurrentFilter;
-            string SearchString = filter.SearchString;
-            int? pageNumber = filter.pageNumber;
-            
+           
+            IQueryable<VehicleMake> VehicleMakeList = context.VehicleMakes;
 
 
+            var listFilter = filter.Filtering(VehicleMakeList, (FilterMake)filter);
 
-            List<VehicleMake> VehicleMakeList = await context.VehicleMakes.ToListAsync();
-
-
-            var listFilter = await filter.FilteringAsync(VehicleMakeList, SearchString, CurrentFilter);
-
-
-
-            var sortMake = await sort.OrderingAsync(listFilter.ToList(), SortOrder);
+            var sortMake = sort.Ordering(listFilter, (SortMake)sort);
 
             var pagedMake = await paging.PagingListAsync(sortMake);
 
-            return pagedMake;
+            return pagedMake; 
         }
 
         public async Task<VehicleMake> CreateMakeAsync(VehicleMake newMake)
@@ -73,5 +64,6 @@ namespace Service.Methods
             return updatedMake;
         }
 
+       
     }
 }

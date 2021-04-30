@@ -1,11 +1,9 @@
 ﻿@model MVC.ViewModels.VehicleModelViewModel
-@{
-    ViewData["Title"] = "Create Vehicle Model";
-}
+@{ ViewData["Title"] = "Create Vehicle Model"; }
 
 
 <form method="post" asp-action="CreatePost">
-    
+
     <div class="border p-3">
         <div class="form-group row">
             <h2 class="text-info pl-3">Create Vehicle Model</h2>
@@ -20,13 +18,14 @@
             <input asp-for="Abrv" class="form-control" />
 
         </div>
-        @*Moram probati staviti tu Make Name, a ne Make Id*@
-    <div class="form-group">
-        <label asp-for="MakeId">Insert Vehicle Make Id</label>
-        <input asp-for="MakeId" class="form-control" />
+        <div class="form-group">
+            @*<label asp-for="MakeId">Insert Vehicle Make Id</label>
+                <input asp-for="MakeId" class="form-control" />*@
+            <label asp-for="MakeId">Select Make Name</label>
+            @Html.DropDownListFor(m => m.MakeId, (IEnumerable<SelectListItem>)ViewBag.viewMakeNameList)
 
-    </div>
-       
+        </div>
+
         <button type="submit" class="btn btn-primary">Save</button>
         <a asp-action="Index" class="btn btn-secondary">Back</a>
     </div>

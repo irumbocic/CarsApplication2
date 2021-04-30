@@ -18,7 +18,6 @@ namespace Service.Methods
         public Task<IPagedList<VehicleModel>> FindAsync(IFilter filter, ISort sort, IPaging<VehicleModel> paging);
 
         public Task<IEnumerable<SelectListItem>> GetListOfMakeNamesAsync();
-        //public List<VehicleModel> Find();
 
 
     }

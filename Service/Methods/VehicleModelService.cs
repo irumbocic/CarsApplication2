@@ -21,23 +21,17 @@ namespace Service.Methods
             this.context = context;
         }
 
-        //kreiraj metodu Find-vracat ce LIST
         public async Task<IPagedList<VehicleModel>> FindAsync(IFilter filter, ISort sort, IPaging<VehicleModel> paging)
         {
-            string SortOrder = sort.SortOrder;
-            string CurrentFilter = filter.CurrentFilter;
-            string SearchString = filter.SearchString;
-            int? pageNumber = filter.PageNumber;
+            
+
+            IQueryable<VehicleModel> VehicleModelList = context.VehicleModels.Include(m => m.VehicleMake);
 
 
-
-            List<VehicleModel> VehicleModelList = await context.VehicleModels.Include(m => m.VehicleMake).ToListAsync();
-
-
-            var listFilter = await filter.FilteringAsync(VehicleModelList, SearchString, CurrentFilter);
+            var listFilter = filter.Filtering(VehicleModelList, (Filter)filter);
 
 
-            var sortModel = await sort.OrderingAsync(listFilter.ToList(), SortOrder);
+            var sortModel = sort.Ordering(listFilter, (Sort)sort);
 
             var pagedModel = await paging.PagingListAsync(sortModel);
 
@@ -61,7 +55,6 @@ namespace Service.Methods
             return deletedModel;
         }
         public async Task<VehicleModel> GetModelAsync(int id)
-        // pisati GetModelAsync --> promijeniti
         {
             return await context.VehicleModels.FindAsync(id);
         }

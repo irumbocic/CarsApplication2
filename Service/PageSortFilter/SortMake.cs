@@ -14,19 +14,19 @@ namespace Service.PageSortFilter
         public string SortOrder { get; set; }
 
 
-        public async Task<List<VehicleMake>> OrderingAsync(List<VehicleMake> filterMake, string SortOrder)
+        public IQueryable<VehicleMake> Ordering(IQueryable<VehicleMake> filterMake, SortMake sortMake)
         {
 
-            switch (SortOrder)
+            switch (sortMake.SortOrder)
             {
                 case "nameDesc":
-                    filterMake = await filterMake.OrderByDescending(m => m.Name).ToListAsync();
+                    filterMake = filterMake.OrderByDescending(m => m.Name);
                     break;
                 case "abrvDesc":
-                    filterMake = await filterMake.OrderByDescending(m => m.Abrv).ToListAsync();
+                    filterMake = filterMake.OrderByDescending(m => m.Abrv);
                     break;
                 default:
-                    filterMake = await filterMake.OrderBy(m => m.Id).ToListAsync();
+                    filterMake = filterMake.OrderBy(m => m.Id);
                     break;
             }
             return filterMake;

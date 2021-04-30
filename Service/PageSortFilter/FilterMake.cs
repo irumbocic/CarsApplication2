@@ -14,31 +14,22 @@ namespace Service.PageSortFilter
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
-        public int ? pageNumber { get; set; }
-
-       
-
-        public async Task<List<VehicleMake>> FilteringAsync(List<VehicleMake> vehicleMakes, string searchString, string currentFilter)
+        public IQueryable<VehicleMake> Filtering(IQueryable<VehicleMake> vehicleMakes, FilterMake filterMake)
         {
 
             var newPagedList = vehicleMakes;
 
-            if (searchString != null)
+            if (filterMake.SearchString == null)
             {
-                this.pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
+                filterMake.SearchString = filterMake.CurrentFilter;
             }
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(filterMake.SearchString))
             {
-                newPagedList = await vehicleMakes.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString)).ToListAsync(); // ovdje moram dodati i make-name, kad to sredim
+                newPagedList = from makes in vehicleMakes
+                               where (makes.Name.Contains(filterMake.SearchString) || makes.Abrv.Contains(filterMake.SearchString))
+                               select makes;
             }
-
-            SearchString = searchString;
-            CurrentFilter = currentFilter;
 
             return newPagedList;
         }

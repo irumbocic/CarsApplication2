@@ -32,11 +32,8 @@ namespace MVC.Controllers
             this.mapper = mapper;
 
         }
-        //-AutoMapper
-        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? pageNumber, int? page)
+        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? page) 
         {
-            //ZADNJA VERZIJA
-
 
             Filter filter = new Filter();
 
@@ -46,11 +43,7 @@ namespace MVC.Controllers
 
             filter.CurrentFilter = currentFilter;
             filter.SearchString = searchString;
-            filter.PageNumber = pageNumber;
-
-
             sort.SortOrder = sortOrder;
-
             paging.page = page;
 
 
@@ -63,7 +56,8 @@ namespace MVC.Controllers
 
             var modelList = await vehicleModelService.FindAsync(filter, sort, paging);
 
-            IEnumerable<VehicleModelViewModel> viewModelList = mapper.Map<IEnumerable<VehicleModelViewModel>>(modelList);
+            var viewModelList = mapper.Map<IEnumerable<VehicleModelViewModel>>(modelList);
+
             IPagedList<VehicleModelViewModel> pagedViewModelList = new StaticPagedList<VehicleModelViewModel>(viewModelList, modelList.GetMetaData());
 
             TempData["SearchString"] = filter.SearchString;
@@ -72,16 +66,21 @@ namespace MVC.Controllers
 
         }
 
-
         //GET-Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+
+            var makeNameList = await vehicleModelService.GetListOfMakeNamesAsync();
+
+            IEnumerable<SelectListItem> viewMakeNameList = mapper.Map<IEnumerable<SelectListItem>>(makeNameList);
+
+            ViewBag.viewMakeNameList = viewMakeNameList;
+
             return View();
 
         }
 
-        //POST-Create-AutoMapper
-
+        //POST-Create
         public async Task<IActionResult> CreatePost(VehicleModelViewModel newViewModel) // ovdje ubaci u funkciju veiwModel, onda (red ispod) mapiraj taj vm u model
         {
             if (ModelState.IsValid)
@@ -95,7 +94,7 @@ namespace MVC.Controllers
         }
 
 
-        //GET-Edit-AutoMapper
+        //GET-Edit
         public async Task<IActionResult> Edit(int id)
         {
             var selectedModel = await vehicleModelService.GetModelAsync(id);
@@ -120,7 +119,7 @@ namespace MVC.Controllers
 
         }
 
-        //POST-Edit-AutoMapper
+        //POST-Edit
         public async Task<IActionResult> EditPost(VehicleModelViewModel updatedViewModel) // provjeri trebas li uopce bit iu viewmodelu ovdje, ili samo ostavim sve da bude VehicleModel
         {
 
@@ -136,7 +135,7 @@ namespace MVC.Controllers
         }
 
 
-        //GET-Delete-AutoMapper
+        //GET-Delete
         public async Task<IActionResult> Delete(int id)
         {
             var selectedModel = await vehicleModelService.GetModelAsync(id);
@@ -146,8 +145,9 @@ namespace MVC.Controllers
             }
             else
             {
-                //return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // mapirano je u viewModel - TREBAM LI OVO MAPIRATI UOPCE
-                return View(selectedModel);
+                return View(mapper.Map<VehicleModelViewModel>(selectedModel)); // mapirano je u viewModel 
+
+                //return View(selectedModel);
             }
         }
 

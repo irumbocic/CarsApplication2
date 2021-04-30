@@ -25,10 +25,8 @@ namespace MVC.Controllers
             this.vehicleMakeService = vehicleMakeService;
             this.mapper = mapper;
         }
-        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? pageNumber, int? page)
+        public async Task<IActionResult> IndexAsync(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            //ZADNJA VERZIJA
-
 
             FilterMake filter = new FilterMake();
 
@@ -38,11 +36,7 @@ namespace MVC.Controllers
 
             filter.CurrentFilter = currentFilter;
             filter.SearchString = searchString;
-            filter.pageNumber = pageNumber;
-
-
             sort.SortOrder = sortOrder;
-
             paging.page = page;
 
 
@@ -55,10 +49,11 @@ namespace MVC.Controllers
 
             var makeList = await vehicleMakeService.FindAsync(filter, sort, paging);
 
-            IEnumerable<VehicleMakeViewModel> viewModelList = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
+            var viewModelList = mapper.Map<IEnumerable<VehicleMakeViewModel>>(makeList);
+
             IPagedList<VehicleMakeViewModel> pagedViewModelList = new StaticPagedList<VehicleMakeViewModel>(viewModelList, makeList.GetMetaData());
 
-            TempData["SearchString"] = filter.SearchString;            // Ovo sam dodala
+            TempData["SearchString"] = filter.SearchString;        
 
             return View(pagedViewModelList);
 
@@ -119,7 +114,7 @@ namespace MVC.Controllers
             }
             else
             {
-                return View(selectedMake);
+                return View(mapper.Map<VehicleMakeViewModel>(selectedMake));
 
             }
         }

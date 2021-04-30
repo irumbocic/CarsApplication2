@@ -13,27 +13,32 @@ namespace Service.PageSortFilter
 
         public string SortOrder { get; set; }
 
+        public int Count { get; set; }
 
-        public async Task<List<VehicleModel>> OrderingAsync(List<VehicleModel> filterModel, string SortOrder)
+
+        public IQueryable<VehicleModel> Ordering(IQueryable<VehicleModel> filterModel, Sort sort)
         {
-            //IEnumerable<VehicleModel> vehicleModels = await vehicleModelService.FindAsync();
+           
 
-            switch (SortOrder)
+            IQueryable<VehicleModel> test = filterModel;  // TEST
+            switch (sort.SortOrder)
             {
                 case "nameDesc":
-                    filterModel = await filterModel.OrderByDescending(m => m.Name).ToListAsync();
+                    test = test.OrderByDescending(m => m.Name);
                     break;
                 case "abrvDesc":
-                    filterModel = await filterModel.OrderByDescending(m => m.Abrv).ToListAsync();
+                    test = test.OrderByDescending(m => m.Abrv);
                     break;
                 case "makeIdDesc":
-                    filterModel = await filterModel.OrderByDescending(m => m.MakeId).ToListAsync();
+                    test = test.OrderByDescending(m => m.MakeId);
                     break;
                 default:
-                    filterModel = await filterModel.OrderBy(m => m.Id).ToListAsync();
+                    test = test.OrderBy(m => m.Id);
                     break;
             }
-            return filterModel;
+
+            Count = test.Count();
+            return test;
         }
 
 

@@ -2,6 +2,7 @@
 using Service.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Service.PageSortFilter
 {
@@ -10,7 +11,7 @@ namespace Service.PageSortFilter
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
-        public int? PageNumber { get; set; }
-        public Task<List<VehicleModel>> FilteringAsync(List<VehicleModel> vehicleModels, string searchString, string currentFilter);
+        public IQueryable<VehicleModel> Filtering(IQueryable<VehicleModel> vehicleModels, Filter filter);
+
     }
 }

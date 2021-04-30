@@ -1,6 +1,7 @@
 ﻿using Service.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,6 @@ namespace Service.PageSortFilter
     {
 
         public string SortOrder { get; set; }
-        public Task<List<VehicleMake>> OrderingAsync(List<VehicleMake> filterMake, string SortOrder);
+        public IQueryable<VehicleMake> Ordering(IQueryable<VehicleMake> filterMake, SortMake sortMake);
     }
 }

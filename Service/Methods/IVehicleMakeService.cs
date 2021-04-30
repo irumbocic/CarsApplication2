@@ -16,6 +16,5 @@ namespace Service.Methods
         public Task<VehicleMake> GetMakeAsync(int id);
         public Task<IPagedList<VehicleMake>> FindAsync(IFilterMake filter, ISortMake sort, IPaging<VehicleMake> paging);
 
-
     }
 }
