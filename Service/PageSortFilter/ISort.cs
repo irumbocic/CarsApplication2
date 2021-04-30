@@ -11,6 +11,6 @@ namespace Service.PageSortFilter
     {
 
         public string SortOrder { get; set; }
-        public IQueryable<VehicleModel> Ordering(IQueryable<VehicleModel> filterModel, Sort sort);
+        public IQueryable<VehicleModel> Ordering(IQueryable<VehicleModel> filterModel, ISort sort);
     }
 }

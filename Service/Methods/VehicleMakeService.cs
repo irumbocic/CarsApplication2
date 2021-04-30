@@ -27,9 +27,9 @@ namespace Service.Methods
             IQueryable<VehicleMake> VehicleMakeList = context.VehicleMakes;
 
 
-            var listFilter = filter.Filtering(VehicleMakeList, (FilterMake)filter);
+            var listFilter = filter.Filtering(VehicleMakeList, filter);
 
-            var sortMake = sort.Ordering(listFilter, (SortMake)sort);
+            var sortMake = sort.Ordering(listFilter, sort);
 
             var pagedMake = await paging.PagingListAsync(sortMake);
 

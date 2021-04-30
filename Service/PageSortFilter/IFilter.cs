@@ -11,7 +11,7 @@ namespace Service.PageSortFilter
         public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
 
-        public IQueryable<VehicleModel> Filtering(IQueryable<VehicleModel> vehicleModels, Filter filter);
+        public IQueryable<VehicleModel> Filtering(IQueryable<VehicleModel> vehicleModels, IFilter filter);
 
     }
 }

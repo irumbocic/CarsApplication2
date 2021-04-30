@@ -28,10 +28,10 @@ namespace Service.Methods
             IQueryable<VehicleModel> VehicleModelList = context.VehicleModels.Include(m => m.VehicleMake);
 
 
-            var listFilter = filter.Filtering(VehicleModelList, (Filter)filter);
+            var listFilter = filter.Filtering(VehicleModelList, filter);
 
 
-            var sortModel = sort.Ordering(listFilter, (Sort)sort);
+            var sortModel = sort.Ordering(listFilter, sort);
 
             var pagedModel = await paging.PagingListAsync(sortModel);
 
